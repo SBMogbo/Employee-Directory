@@ -7,7 +7,7 @@ import SearchForm from "./SearchForm";
 import EmployeeDetail from "./EmployeeDetail";
 import employeeFinder from "../utils/API";
 
-class OmdbContainer extends Component {
+class employeeContainer extends Component {
   state = {
     result: {},
     search: ""
@@ -15,6 +15,7 @@ class OmdbContainer extends Component {
 
   searchEmployees = query => {
     employeeFinder.search(query)
+    console.log(query)
       .then(res => this.setState({ result: res.data }))
       .catch(err => console.log(err));
   };
@@ -69,4 +70,4 @@ class OmdbContainer extends Component {
   }
 }
 
-export default OmdbContainer;
+export default employeeContainer;
