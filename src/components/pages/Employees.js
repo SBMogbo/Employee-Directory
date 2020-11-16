@@ -4,112 +4,74 @@ import Card from "../../components/Card";
 import Row from "../../components/Row";
 import Container from "../../components/Container";
 import Column from "../../components/Column";
+import "./style.css";
 
 class Employees extends Component {
   state = {
-    parsedResult: [],
-    result: [],
-    allResults: []
+    allResults: [],
+    allResultsParsed: [],
+    results: []
   };
-  componentMount() {
+  componentDidMount() {
     API.searchEmployees().then(res => {
       this.setState({
-        allResults: res.data.result,
-        parsedResult: res.data.result,
-        result: res.data.result
-
+        allResults: res.data.results,
+        allResultsParsed: res.data.results,
+        results: res.data.results
       });
     });
-  };
+  }
   // search first name event
-  searchFirst = (event) => {
+  handleSearchFirst = (event) => {
     const firstName = event.target.value;
-    this.sortFirstName(firstName)
-  };
-
+    this.sortPeopleFirst(firstName);
+  }
   // search last name event
-  searchLast = (event) => {
+  handleSearchLast = (event) => {
     const lastName = event.target.value;
-    this.sortFirstName(lastName)
+    this.sortPeopleLast(lastName);
   }
   // first name results
-  employeeFirstName = (value) => {
-    let searchResults = this.state.allResults.filter((placeholder) => {
-
-      return placeholder.name.first.toLowerCase().includes(value);
+  sortPeopleFirst = (value) => {
+    let searchResults = this.state.allResults.filter((doe) => {
+      return doe.name.first.toLowerCase().includes(value);
     })
     this.setState({
-      parsedResult: searchResults
+      allResultsParsed: searchResults
     })
   }
-  // last name results
-  employeeLastName = (value) => {
-    let searchResults = this.state.allResults.filter((placeholder) => {
-
-      return placeholder.name.last.toLowerCase().includes(value);
+  // function last name results
+  sortPeopleLast = (value) => {
+    let searchResults = this.state.allResults.filter((doe) => {
+      return doe.name.last.toLowerCase().includes(value)
     })
     this.setState({
-      parsedResult: searchResults
+      allResultsParsed: searchResults
     })
   }
-  // // add handleinpuntchange function here
-  // handleInpuntchange = event => {
-  //   const value = event.target.value;
-  //   const name = event.target.name;
-  //   this.setState({
-  //     [name]: value
-  //   });
-  //   // add handleformSubmit function here
-  //   // eslint-disable-next-line no-undef
-  //   handleFormSubmit = event => {
-  //     event.preventDefault();
-  //     this.searchEmployees(this.state.search)
-  //   }
-
-
-  // };
-
-
-
   render() {
-    const result = this.state.parsedResult;
+    const results = this.state.allResultsParsed;
     return (
       <div>
-        <h1> Find an Employee</h1>
-        <form>
-          <div className="form-group">
-            <label htmlFor="search">Search:</label>
-            <input
-              // have to use functions to trigger events on the page 
+        <h1 className='text-center'>Employees Finder</h1>
+        <form className='search-form form-inline'>
+          <div>
 
-              name="search"
-              type="text"
-              className="form-control"
-              placeholder="Search For a Employee's last name"
-              id="search"
-            //onChange={this.searchLast}
-            />
-            <br />
-            <button className="btn btn-primary">
-              Search
-        </button>
+            <input className="employeeSearch" placeholder="Search for a Last Name" onChange={this.handleSearchLast} />
           </div>
         </form>
         <Container>
           <Row>
-          {
-              result.map((employees, i) => (
+            {
+              results.map((employees, i) => (
                 <Column key={i}>
                   <Card
-                    image={employees.picture.large}
-                    fullname = {employees.name.first + employees.name.last}
+                    image={employees.picture.medium}
+                    fullname={employees.name.first + employees.name.last}
                     firstName={employees.name.first}
                     lastName={employees.name.last}
-                    age={employees.dob.age}
-                    DOB={employees.dob.date}
                     phoneNum={employees.phone}
                     email={employees.email}
-                    
                   />
                 </Column>
               ))
@@ -119,7 +81,7 @@ class Employees extends Component {
       </div>
     );
   }
+
 }
 
 export default Employees;
-

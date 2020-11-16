@@ -14,7 +14,6 @@ function Card(props) {
       <h5 className="card-title">{`${props.firstName} ${props.lastName}`}</h5>
       <p className="Card-text">Email: {props.email}</p>
       <p className="Card-text">Phone: {props.phoneNum}</p>
-      <p className="Card-text">Age: {props.age}</p>
     </div>
   </div>
   );
