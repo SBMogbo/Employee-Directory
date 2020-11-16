@@ -12,5 +12,8 @@ height: 30px;
 padding: 10px;
 border-radius: 20px;
 margin: 10px;
-background-color: #f6f6f6;;
+background-color: #f6f6f6;
+}
+p h1{
+  text-align: center;
 }

@@ -66,7 +66,7 @@ class Employees extends Component {
               results.map((employees, i) => (
                 <Column key={i}>
                   <Card
-                    image={employees.picture.medium}
+                    image={employees.picture.large}
                     fullname={employees.name.first + employees.name.last}
                     firstName={employees.name.first}
                     lastName={employees.name.last}
